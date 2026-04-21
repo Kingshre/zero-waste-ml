@@ -10,11 +10,13 @@ st.set_page_config(page_title="Zero Waste ML Predictor", layout="wide")
 # Load data and model
 @st.cache_data
 def load_data():
-    return pd.read_csv('../data/processed/facilities_clean.csv')
+    return pd.read_csv('facilities_clean.csv')
+
 
 @st.cache_resource
 def load_model():
-    return joblib.load('../src/model.pkl')
+    return joblib.load('model.pkl')
+
 
 df = load_data()
 model = load_model()
@@ -67,7 +69,7 @@ st.dataframe(
 
 # SHAP
 st.subheader("🔍 Feature Importance (SHAP)")
-shap_img = Image.open('../src/shap_summary.png')
+shap_img = Image.open('shap_summary.png')
 st.image(shap_img, use_column_width=True)
 
 # Prediction tool
