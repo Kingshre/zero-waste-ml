@@ -4,19 +4,20 @@ import plotly.express as px
 import joblib
 import numpy as np
 from PIL import Image
+import os
 
 st.set_page_config(page_title="Zero Waste ML Predictor", layout="wide")
+
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Load data and model
 @st.cache_data
 def load_data():
-    return pd.read_csv('facilities_clean.csv')
-
+    return pd.read_csv(os.path.join(APP_DIR, 'facilities_clean.csv'))
 
 @st.cache_resource
 def load_model():
-    return joblib.load('model.pkl')
-
+    return joblib.load(os.path.join(APP_DIR, 'model.pkl'))
 
 df = load_data()
 model = load_model()
@@ -69,8 +70,8 @@ st.dataframe(
 
 # SHAP
 st.subheader("🔍 Feature Importance (SHAP)")
-shap_img = Image.open('shap_summary.png')
-st.image(shap_img, use_column_width=True)
+shap_img = Image.open(os.path.join(APP_DIR, 'shap_summary.png'))
+st.image(shap_img, use_container_width=True)
 
 # Prediction tool
 st.subheader("⚡ Predict Risk for a Facility")
